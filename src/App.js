@@ -11,6 +11,8 @@ function App() {
   const [cards, setCards] = useState([]);
   const [displayedCards, setDisplayedCards] = useState([])
   const [previousSelections, setPreviousSelections] = useState([])
+  const [score, setScore] = useState(0);
+  const [isLoser, setIsLoser] = useState(false);
 
   const isInitialMount = useRef(true)
 
@@ -29,15 +31,31 @@ function App() {
     } else {
       const cardsToDisplay = []
       for (let i = 0; i < 8; i++) {
-        cardsToDisplay.push(cards[Math.floor(Math.random() * cards.length)])
+        let newCard = cards[Math.floor(Math.random() * cards.length)]
+        while (cardsToDisplay.some(card => card.id === newCard.id && card.name === newCard.name)) {
+          newCard = cards[Math.floor(Math.random() * cards.length)]
+        }
+        cardsToDisplay.push(newCard)
       }
       setDisplayedCards(cardsToDisplay)
     }
 
   }, [cards, previousSelections])
 
+
   const handleClick = (pokemon) => {
-    setPreviousSelections([...previousSelections, pokemon])
+    if (previousSelections.some(selection => pokemon.id === selection.id && pokemon.name === selection.name)) {
+      setIsLoser(true)
+      setPreviousSelections([])
+    } else {
+      setPreviousSelections([...previousSelections, pokemon])
+      setScore(score + 1)
+    }
+  }
+
+  const restartGame = () => {
+    setIsLoser(false)
+    setScore(0)
   }
 
   return (
@@ -46,9 +64,16 @@ function App() {
         <Header>
           <Button>Instructions</Button>
           <h1>Pokémemory!</h1>
-          <Scoreboard score={5} />
+          <Scoreboard score={score} />
         </Header>
-        <CardContainer clickHandler={handleClick} cards={displayedCards} />
+        {!isLoser &&
+          <CardContainer clickHandler={handleClick} cards={displayedCards} />
+        }
+        {isLoser && (
+          <div>
+            <h2>You lost!</h2>
+            <button type="button" onClick={restartGame}>Play Again?</button>
+          </div>)}
       </AppWrapper>
     </ThemeProvider>
   );
