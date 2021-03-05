@@ -1,24 +1,31 @@
-import logo from './logo.svg';
+import React, { useEffect, useReducer } from 'react';
+import { Header, AppWrapper } from './styledutils'
 import './App.css';
+import { ThemeProvider } from 'styled-components';
+import { myTheme } from './my-theme'
+import Scoreboard from './Scoreboard';
+import Card from './Card'
+import { init, reducer } from './reducer'
 
 function App() {
+
+  const [state, dispatch] = useReducer(reducer, init)
+
+  useEffect(() => {
+
+    return () => {
+    }
+  }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={myTheme}>
+      <AppWrapper className="App">
+        <Header>
+          <h1>Pokémemory!</h1>
+          <Scoreboard score={5} />
+        </Header>
+
+      </AppWrapper>
+    </ThemeProvider>
   );
 }
 
