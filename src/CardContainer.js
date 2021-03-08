@@ -10,7 +10,8 @@ width: 100vw;
 height: 100%;
 
 @media(max-width:375px){
-  grid-template-columns: repeat(2, 1fr)
+  grid-template-columns: repeat(2, 50%);
+  grid-gap: 0;
 }
 `
 
