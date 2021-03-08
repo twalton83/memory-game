@@ -5,3 +5,15 @@
   min-height: 100vh;
 }
 
+.snorlax{
+  max-width: 30vw;
+  margin-top: 16px;
+ 
+}
+
+@media screen and (max-width:375px){  
+  .snorlax {
+    max-width: 50%;
+
+  }
+}

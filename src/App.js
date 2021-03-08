@@ -9,6 +9,7 @@ import axios from 'axios';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import InstructionsModal from './InstructionsModal'
 import pokeball from './pokeball.png'
+import snorlax from './snorlax.png'
 
 
 function App() {
@@ -86,6 +87,7 @@ function App() {
           <div>
             <h2 style={{ color: "white" }}>You lost!</h2>
             <PlayAgainButton className="play-again" type="button" onClick={restartGame}>Play Again?</PlayAgainButton>
+            <img className="snorlax" src={snorlax} alt="snorlax" />
           </div>)}
         {displayModal && <InstructionsModal toggleModal={handleModal} />}
 
