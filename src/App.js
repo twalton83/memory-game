@@ -1,11 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { Header, AppWrapper, Button } from './styledutils'
+import { Header, AppWrapper, Button, PlayAgainButton } from './styledutils'
 import './App.css';
 import { ThemeProvider } from 'styled-components';
 import { myTheme } from './my-theme'
 import Scoreboard from './Scoreboard';
 import CardContainer from './CardContainer'
 import axios from 'axios';
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import InstructionsModal from './InstructionsModal'
+
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -13,6 +16,7 @@ function App() {
   const [previousSelections, setPreviousSelections] = useState([])
   const [score, setScore] = useState(0);
   const [isLoser, setIsLoser] = useState(false);
+  const [displayModal, setDisplayModal] = useState(false);
 
   const isInitialMount = useRef(true)
 
@@ -42,6 +46,10 @@ function App() {
 
   }, [cards, previousSelections])
 
+  const handleModal = (e) => {
+    setDisplayModal(!displayModal)
+  }
+
 
   const handleClick = (pokemon) => {
     if (previousSelections.some(selection => pokemon.id === selection.id && pokemon.name === selection.name)) {
@@ -62,7 +70,7 @@ function App() {
     <ThemeProvider theme={myTheme}>
       <AppWrapper className="App">
         <Header>
-          <Button>Instructions</Button>
+          <Button onClick={handleModal}>Instructions</Button>
           <h1>Pokémemory!</h1>
           <Scoreboard score={score} />
         </Header>
@@ -72,8 +80,10 @@ function App() {
         {isLoser && (
           <div>
             <h2>You lost!</h2>
-            <button type="button" onClick={restartGame}>Play Again?</button>
+            <PlayAgainButton className="play-again" type="button" onClick={restartGame}>Play Again?</PlayAgainButton>
           </div>)}
+        {displayModal && <InstructionsModal toggleModal={handleModal} />}
+
       </AppWrapper>
     </ThemeProvider>
   );

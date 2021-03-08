@@ -34,5 +34,20 @@ background-color: ${props => props.theme.backgroundColor};
 border: none;
 color: ${props => props.theme.colors.main};
 font-size: 1.5rem;
-text-align: Center;
+text-align: center;
+`
+
+export const PlayAgainButton = styled.button`
+display: flex;
+flex-direction: column;
+align-items: center;
+height: 32px;
+justify-content: center;
+background-color: grey;
+border: none;
+border-radius: 5px;
+color: ${props => props.theme.colors.main};
+font-size: 1.5rem;
+text-align: center;
+margin: 0 auto;
 `
