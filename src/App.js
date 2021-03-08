@@ -8,6 +8,7 @@ import CardContainer from './CardContainer'
 import axios from 'axios';
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import InstructionsModal from './InstructionsModal'
+import pokeball from './pokeball.png'
 
 
 function App() {
@@ -71,7 +72,11 @@ function App() {
       <AppWrapper className="App">
         <Header>
           <Button onClick={handleModal}>Instructions</Button>
-          <h1>Pokémemory!</h1>
+          <div style={{ display: "flex", alignItems: "center" }}>
+            <h1>Pokémemory!</h1>
+            <img style={{ height: "36px", display: "inline" }} src={pokeball} alt="Pokeball" />
+          </div>
+
           <Scoreboard score={score} />
         </Header>
         {!isLoser &&
@@ -79,7 +84,7 @@ function App() {
         }
         {isLoser && (
           <div>
-            <h2>You lost!</h2>
+            <h2 style={{ color: "white" }}>You lost!</h2>
             <PlayAgainButton className="play-again" type="button" onClick={restartGame}>Play Again?</PlayAgainButton>
           </div>)}
         {displayModal && <InstructionsModal toggleModal={handleModal} />}

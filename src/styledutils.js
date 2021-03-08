@@ -4,6 +4,7 @@ export const Header = styled.div`
 display: flex;
 flex-direction: row;
 align-items: center;
+justify-content: space-between;
 
   background-color: ${props => props.theme.backgroundColor};
   color: ${props => props.theme.colors.main};
